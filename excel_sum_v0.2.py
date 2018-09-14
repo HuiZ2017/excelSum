@@ -2,20 +2,20 @@
 # encoding: utf-8
 '''
 @author: zhanghui
-@file: excel_sum_v0.2.py
-@time: 2018/9/8 19:12
+@file: excel_sum_v0.3.py
+@time: 2018/9/10 19:12
 '''
 
 import tkinter as tk
 from tkinter import messagebox as msg
 import tkinter.filedialog as tkFileDialog
-import time, xlwt
+import time
 from getExcel import getExcel as excel
 from openpyxl import load_workbook
 class excelsum(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("总结tool v0.2 \t by 张珲")
+        self.title("总结tool v0.3 \t by 张珲")
         self.geometry("300x200")
         self.file_opt = {}
         self.file_list = []
@@ -25,32 +25,31 @@ class excelsum(tk.Tk):
         self.today = time.strftime("%Y/%m/%d")
         self.wm_attributes('-topmost', 1)
         self.resizable(width=False, height=False)
-        borders = xlwt.Borders()
-        borders.left = 1
-        borders.right = 1
-        borders.top = 1
-        borders.bottom = 1
-        borders.bottom_colour = 0x3A
-        alignment = xlwt.Alignment()
-        alignment.horz = xlwt.Alignment.HORZ_CENTER
-        alignment.vert = xlwt.Alignment.VERT_CENTER
-        font = xlwt.Font()
-        font.name = 'SimSun'  # 指定“宋体”
-        self.style1 = xlwt.XFStyle()
-        self.style1.num_format_str = 'YYYY/M/D'
-        self.style2 = xlwt.XFStyle()
-        self.style2.borders = borders
-        self.style2.font = font
-        self.style1.borders = borders
-        self.style1.alignment = alignment
-        self.style2.alignment = alignment
+        # borders = xlwt.Borders()
+        # borders.left = 1
+        # borders.right = 1
+        # borders.top = 1
+        # borders.bottom = 1
+        # borders.bottom_colour = 0x3A
+        # alignment = xlwt.Alignment()
+        # alignment.horz = xlwt.Alignment.HORZ_CENTER
+        # alignment.vert = xlwt.Alignment.VERT_CENTER
+        # font = xlwt.Font()
+        # font.name = 'SimSun'  # 指定“宋体”
+        # self.style1 = xlwt.XFStyle()
+        # self.style1.num_format_str = 'YYYY/M/D'
+        # self.style2 = xlwt.XFStyle()
+        # self.style2.borders = borders
+        # self.style2.font = font
+        # self.style1.borders = borders
+        # self.style1.alignment = alignment
+        # self.style2.alignment = alignment
         self.result = []
         self.file_count = 0
         self.row_flag = 0
         self.Rightframe = tk.Frame(self,height=200,width=150)
         self.Leftframe = tk.Frame(self, height=200, width=150)
         self.L_up_frame = tk.Frame(self.Leftframe, height=50, width=150)
-        #self.L_down_frame = tk.Frame(self.Leftframe, height=50, width=150,bg = 'red')
         self.R_m_frame = tk.Frame(self.Rightframe, height=100, width=150)
         self.init_frame()
         self.open_botton = tk.Button(self.L_up_frame, height=1, width=6,text="打开", fg="blue", bg="white", command=self.askopenfile)
@@ -113,7 +112,6 @@ class excelsum(tk.Tk):
             for data in self.result:
                 for index in range(len(data)):
                     worksheet['%d' % row][index].value = data[index]
-                worksheet['%d' % row].row_dimensions = style
                 row += 1
             workbook.save(filename)
         msg.showinfo("提示！", "%s 共添加 %s 条" %(self.now,len(self.result)))
@@ -122,4 +120,3 @@ class excelsum(tk.Tk):
 if __name__ == "__main__":
     demo1 = excelsum()
     demo1.mainloop()
-
